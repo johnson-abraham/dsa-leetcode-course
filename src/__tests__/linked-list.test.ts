@@ -26,7 +26,7 @@ describe("linkedList", () => {
 
       beforeEach(() => (poppedValue = linkedList.pop()));
 
-      it("should return null", () => expect(poppedValue).toBeNull());
+      it("should return undefined", () => expect(poppedValue).toBeUndefined());
     });
 
     describe("when an element is unshifted", () => {
@@ -44,7 +44,7 @@ describe("linkedList", () => {
 
       beforeEach(() => (shiftedValue = linkedList.shift()));
 
-      it("should return null", () => expect(shiftedValue).toBeNull());
+      it("should return undefined", () => expect(shiftedValue).toBeUndefined());
     });
   });
 

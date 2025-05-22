@@ -55,8 +55,8 @@ export class LinkedList<T> {
     return this;
   }
 
-  pop(): T {
-    if (!isDefined(this.head)) return null;
+  pop(): T | undefined {
+    if (!isDefined(this.head)) return undefined;
 
     let previous = this.head;
     let current = this.head.getNext();
@@ -101,8 +101,8 @@ export class LinkedList<T> {
   /**
    * Removes the first element in the list
    */
-  shift(): T {
-    if (!isDefined(this.head)) return null;
+  shift(): T | undefined {
+    if (!isDefined(this.head)) return undefined;
 
     const value = this.head.getValue();
 
