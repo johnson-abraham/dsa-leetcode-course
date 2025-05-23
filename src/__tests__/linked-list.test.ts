@@ -46,6 +46,14 @@ describe("linkedList", () => {
 
       it("should return undefined", () => expect(shiftedValue).toBeUndefined());
     });
+
+    describe("when get function is called", () => {
+      let value: number;
+
+      beforeEach(() => (value = linkedList.get(0)));
+
+      it("should return undefined", () => expect(value).toBeUndefined());
+    });
   });
 
   describe("when one element is present", () => {
@@ -97,6 +105,15 @@ describe("linkedList", () => {
 
       it("should return an empty array", () =>
         expect(linkedList.asArray()).toEqual([]));
+    });
+
+    describe("when get function is called", () => {
+      let value: number;
+
+      beforeEach(() => (value = linkedList.get(0)));
+
+      it("should return the value at the index", () =>
+        expect(value).toEqual(10));
     });
   });
 
@@ -180,6 +197,29 @@ describe("linkedList", () => {
 
       it("should return the elements in the array in order", () =>
         expect(linkedList.asArray()).toEqual([20, 30, 40, 50]));
+    });
+
+    describe("when get function is called", () => {
+      let value: number;
+
+      describe("with index less than 0", () => {
+        beforeEach(() => (value = linkedList.get(-1)));
+
+        it("should return undefined", () => expect(value).toBeUndefined());
+      });
+
+      describe("with index greater than the total length of the list", () => {
+        beforeEach(() => (value = linkedList.get(5)));
+
+        it("should return undefined", () => expect(value).toBeUndefined());
+      });
+
+      describe("with index within the length of the list", () => {
+        beforeEach(() => (value = linkedList.get(3)));
+
+        it("should return the value at the index", () =>
+          expect(value).toEqual(40));
+      });
     });
   });
 });

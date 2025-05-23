@@ -98,6 +98,18 @@ export class LinkedList<T> {
     return this;
   }
 
+  get(index: number): T | undefined {
+    if (index < 0 || index >= this.length) return undefined;
+
+    let current = this.head;
+
+    for (let i = 0; i < index; i++) {
+      current = current.getNext();
+    }
+
+    return current.getValue();
+  }
+
   /**
    * Removes the first element in the list
    */
