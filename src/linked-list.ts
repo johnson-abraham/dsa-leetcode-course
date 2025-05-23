@@ -1,7 +1,7 @@
 import { isDefined } from "./utils";
 
 class TNode<T> {
-  private readonly value: T;
+  private value: T;
   private next: TNode<T>;
 
   constructor(value: T) {
@@ -11,6 +11,10 @@ class TNode<T> {
 
   getValue(): T {
     return this.value;
+  }
+
+  setValue(value: T): void {
+    this.value = value;
   }
 
   getNext(): TNode<T> {
