@@ -84,6 +84,25 @@ export class LinkedList<T> {
   }
 
   /**
+   * Removes the first element in the list
+   */
+  shift(): T | undefined {
+    if (!isDefined(this.head)) return undefined;
+
+    const value = this.head.getValue();
+
+    if (!isDefined(this.head.getNext())) {
+      this.head = this.tail = null;
+    } else {
+      this.head = this.head.getNext();
+    }
+
+    --this.length;
+
+    return value;
+  }
+
+  /**
    * Adds an element to the beginning of the list
    * @param value
    */
@@ -127,25 +146,6 @@ export class LinkedList<T> {
     }
 
     return false;
-  }
-
-  /**
-   * Removes the first element in the list
-   */
-  shift(): T | undefined {
-    if (!isDefined(this.head)) return undefined;
-
-    const value = this.head.getValue();
-
-    if (!isDefined(this.head.getNext())) {
-      this.head = this.tail = null;
-    } else {
-      this.head = this.head.getNext();
-    }
-
-    --this.length;
-
-    return value;
   }
 
   getLength(): number {
