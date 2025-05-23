@@ -102,7 +102,7 @@ export class LinkedList<T> {
     return this;
   }
 
-  get(index: number): T | undefined {
+  private getNodeAtIndex(index: number): TNode<T> | undefined {
     if (index < 0 || index >= this.length) return undefined;
 
     let current = this.head;
@@ -111,7 +111,21 @@ export class LinkedList<T> {
       current = current.getNext();
     }
 
-    return current.getValue();
+    return current;
+  }
+
+  get(index: number): T | undefined {
+    return this.getNodeAtIndex(index)?.getValue();
+  }
+
+  set(index: number, value: T): this {
+    const node = this.getNodeAtIndex(index);
+
+    if (isDefined(node)) {
+      node.setValue(value);
+    }
+    
+    return this;
   }
 
   /**
