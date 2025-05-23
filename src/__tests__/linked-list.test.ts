@@ -56,7 +56,11 @@ describe("linkedList", () => {
     });
 
     describe("when set function is called", () => {
-      beforeEach(() => linkedList.set(0, 10));
+      let hasSet: boolean;
+
+      beforeEach(() => (hasSet = linkedList.set(0, 10)));
+
+      it("should return false", () => expect(hasSet).toBeFalsy());
 
       it("should return an empty array without setting the value", () =>
         expect(linkedList.asArray()).toEqual([]));
@@ -124,7 +128,11 @@ describe("linkedList", () => {
     });
 
     describe("when set function is called", () => {
-      beforeEach(() => linkedList.set(0, 20));
+      let hasSet: boolean;
+
+      beforeEach(() => (hasSet = linkedList.set(0, 20)));
+
+      it("should return true", () => expect(hasSet).toBeTruthy());
 
       it("should return an empty array with the updated value", () =>
         expect(linkedList.asArray()).toEqual([20]));
@@ -237,22 +245,30 @@ describe("linkedList", () => {
     });
 
     describe("when set function is called", () => {
+      let hasSet: boolean;
+
       describe("with index less than 0", () => {
-        beforeEach(() => linkedList.set(-1, -10));
+        beforeEach(() => (hasSet = linkedList.set(-1, -10)));
+
+        it("should return false", () => expect(hasSet).toBeFalsy());
 
         it("should return the array with existing values", () =>
           expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
       });
 
       describe("with index greater than the list's length", () => {
-        beforeEach(() => linkedList.set(5, 60));
+        beforeEach(() => (hasSet = linkedList.set(5, 60)));
+
+        it("should return false", () => expect(hasSet).toBeFalsy());
 
         it("should return the array with existing values", () =>
           expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
       });
 
       describe("with the index within the list", () => {
-        beforeEach(() => linkedList.set(2, 100));
+        beforeEach(() => (hasSet = linkedList.set(2, 100)));
+
+        it("should return true", () => expect(hasSet).toBeTruthy());
 
         it("should return the array with the updated values", () =>
           expect(linkedList.asArray()).toEqual([10, 20, 100, 40, 50]));

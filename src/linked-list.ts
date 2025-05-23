@@ -118,14 +118,15 @@ export class LinkedList<T> {
     return this.getNodeAtIndex(index)?.getValue();
   }
 
-  set(index: number, value: T): this {
+  set(index: number, value: T): boolean {
     const node = this.getNodeAtIndex(index);
 
     if (isDefined(node)) {
       node.setValue(value);
+      return true;
     }
-    
-    return this;
+
+    return false;
   }
 
   /**
