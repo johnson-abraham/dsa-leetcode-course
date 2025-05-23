@@ -118,6 +118,16 @@ describe("linkedList", () => {
         expect(linkedList.asArray()).toEqual([]));
     });
 
+    describe("when an element is unshifted", () => {
+      beforeEach(() => linkedList.unshift(1));
+
+      it("should return a length of 2", () =>
+        expect(linkedList.getLength()).toEqual(2));
+
+      it("should return the array with all the elements", () =>
+        expect(linkedList.asArray()).toEqual([1, 10]));
+    });
+
     describe("when get function is called", () => {
       let value: number;
 
