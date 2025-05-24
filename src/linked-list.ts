@@ -121,18 +121,6 @@ export class LinkedList<T> {
     return this;
   }
 
-  private getNodeAtIndex(index: number): TNode<T> | undefined {
-    if (index < 0 || index >= this.length) return undefined;
-
-    let current = this.head;
-
-    for (let i = 0; i < index; i++) {
-      current = current.getNext();
-    }
-
-    return current;
-  }
-
   get(index: number): T | undefined {
     return this.getNodeAtIndex(index)?.getValue();
   }
@@ -146,6 +134,30 @@ export class LinkedList<T> {
     }
 
     return false;
+  }
+
+  insert(index: number, value: T): boolean {
+    if (index < 0 || index > this.length) return false;
+
+    if (index === 0) {
+      this.unshift(value);
+    } else if (index === this.length) {
+      this.push(value);
+    } else {
+      let current = this.head;
+
+      for (let i = 0; i < index - 1; i++) {
+        current = current.getNext();
+      }
+
+      const newNode = new TNode(value);
+      newNode.setNext(current.getNext());
+      current.setNext(newNode);
+
+      ++this.length;
+    }
+
+    return true;
   }
 
   getLength(): number {
@@ -164,5 +176,17 @@ export class LinkedList<T> {
     }
 
     return values;
+  }
+
+  private getNodeAtIndex(index: number): TNode<T> | undefined {
+    if (index < 0 || index >= this.length) return undefined;
+
+    let current = this.head;
+
+    for (let i = 0; i < index; i++) {
+      current = current.getNext();
+    }
+
+    return current;
   }
 }

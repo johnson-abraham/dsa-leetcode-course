@@ -65,6 +65,20 @@ describe("linkedList", () => {
       it("should return an empty array without setting the value", () =>
         expect(linkedList.asArray()).toEqual([]));
     });
+
+    describe("when insert function is called", () => {
+      let isInserted: boolean;
+
+      beforeEach(() => (isInserted = linkedList.insert(0, 10)));
+
+      it("should return true", () => expect(isInserted).toBeTruthy());
+
+      it("should have a length of 1", () =>
+        expect(linkedList.getLength()).toEqual(1));
+
+      it("should return the array with the inserted element", () =>
+        expect(linkedList.asArray()).toEqual([10]));
+    });
   });
 
   describe("when one element is present", () => {
@@ -146,6 +160,34 @@ describe("linkedList", () => {
 
       it("should return an empty array with the updated value", () =>
         expect(linkedList.asArray()).toEqual([20]));
+    });
+
+    describe("when insert function is called", () => {
+      let isInserted: boolean;
+
+      describe("and an element is inserted into the 0th index", () => {
+        beforeEach(() => (isInserted = linkedList.insert(0, 1)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should have a length of 2", () =>
+          expect(linkedList.getLength()).toEqual(2));
+
+        it("should return the array with the inserted element", () =>
+          expect(linkedList.asArray()).toEqual([1, 10]));
+      });
+
+      describe("and the element is inserted into the 1st index", () => {
+        beforeEach(() => (isInserted = linkedList.insert(1, 20)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should have a length of 2", () =>
+          expect(linkedList.getLength()).toEqual(2));
+
+        it("should return the array with the inserted element", () =>
+          expect(linkedList.asArray()).toEqual([10, 20]));
+      });
     });
   });
 
@@ -282,6 +324,82 @@ describe("linkedList", () => {
 
         it("should return the array with the updated values", () =>
           expect(linkedList.asArray()).toEqual([10, 20, 100, 40, 50]));
+      });
+    });
+
+    describe("when insert function is called", () => {
+      let isInserted: boolean;
+
+      describe("with index less than 0", () => {
+        beforeEach(() => (isInserted = linkedList.insert(-1, 1)));
+
+        it("should return false", () => expect(isInserted).toBeFalsy());
+
+        it("should retain the existing length", () =>
+          expect(linkedList.getLength()).toEqual(5));
+
+        it("should return the array with existing values", () =>
+          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
+      });
+
+      describe("with index is 1 greater than the list's length", () => {
+        beforeEach(() => (isInserted = linkedList.insert(6, 1)));
+
+        it("should return false", () => expect(isInserted).toBeFalsy());
+
+        it("should retain the existing length", () =>
+          expect(linkedList.getLength()).toEqual(5));
+
+        it("should return the array with existing values", () =>
+          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
+      });
+
+      describe("with index 0", () => {
+        beforeEach(() => (isInserted = linkedList.insert(0, 1)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should return length of 6", () =>
+          expect(linkedList.getLength()).toEqual(6));
+
+        it("should return the array with the values in order", () =>
+          expect(linkedList.asArray()).toEqual([1, 10, 20, 30, 40, 50]));
+      });
+
+      describe("with index equal to the list's length", () => {
+        beforeEach(() => (isInserted = linkedList.insert(5, 60)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should return length of 6", () =>
+          expect(linkedList.getLength()).toEqual(6));
+
+        it("should return the array with the values in order", () =>
+          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50, 60]));
+      });
+
+      describe("with index that inserts an element at the current last element", () => {
+        beforeEach(() => (isInserted = linkedList.insert(4, 45)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should return length of 6", () =>
+          expect(linkedList.getLength()).toEqual(6));
+
+        it("should return the array with the values in order", () =>
+          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 45, 50]));
+      });
+
+      describe("with an index within the list's length", () => {
+        beforeEach(() => (isInserted = linkedList.insert(2, 25)));
+
+        it("should return true", () => expect(isInserted).toBeTruthy());
+
+        it("should return length of 6", () =>
+          expect(linkedList.getLength()).toEqual(6));
+
+        it("should return the array with the values in order", () =>
+          expect(linkedList.asArray()).toEqual([10, 20, 25, 30, 40, 50]));
       });
     });
   });
