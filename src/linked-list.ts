@@ -137,12 +137,12 @@ export class LinkedList<T> {
   }
 
   insert(index: number, value: T): boolean {
-    if (index < 0 || index > this.length) return false;
-
     if (index === 0) {
       this.unshift(value);
     } else if (index === this.length) {
       this.push(value);
+    } else if (index < 0 || index > this.length) {
+      return false;
     } else {
       let current = this.head;
 
