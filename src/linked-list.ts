@@ -1,8 +1,8 @@
 import { isDefined } from "./utils";
 
-class TNode<T> {
+class Node<T> {
   private value: T;
-  private next: TNode<T>;
+  private next: Node<T>;
 
   constructor(value: T) {
     this.value = value;
@@ -17,25 +17,25 @@ class TNode<T> {
     this.value = value;
   }
 
-  getNext(): TNode<T> {
+  getNext(): Node<T> {
     return this.next;
   }
 
-  setNext(node: TNode<T>): void {
+  setNext(node: Node<T>): void {
     this.next = node;
   }
 }
 
 export class LinkedList<T> {
-  private head: TNode<T>;
-  private tail: TNode<T>;
+  private head: Node<T>;
+  private tail: Node<T>;
   private length: number;
 
   constructor();
   constructor(value: T);
   constructor(value?: T) {
     if (isDefined(value)) {
-      const newNode = new TNode(value);
+      const newNode = new Node(value);
       this.head = this.tail = newNode;
       this.length = 1;
     } else {
@@ -45,7 +45,7 @@ export class LinkedList<T> {
   }
 
   push(value: T): this {
-    const newNode = new TNode(value);
+    const newNode = new Node(value);
 
     if (!isDefined(this.head)) {
       this.head = this.tail = newNode;
@@ -107,7 +107,7 @@ export class LinkedList<T> {
    * @param value
    */
   unshift(value: T): this {
-    const newNode = new TNode(value);
+    const newNode = new Node(value);
 
     if (!isDefined(this.head)) {
       this.head = this.tail = newNode;
@@ -150,7 +150,7 @@ export class LinkedList<T> {
         current = current.getNext();
       }
 
-      const newNode = new TNode(value);
+      const newNode = new Node(value);
       newNode.setNext(current.getNext());
       current.setNext(newNode);
 
@@ -178,7 +178,7 @@ export class LinkedList<T> {
     return values;
   }
 
-  private getNodeAtIndex(index: number): TNode<T> | undefined {
+  private getNodeAtIndex(index: number): Node<T> | undefined {
     if (index < 0 || index >= this.length) return undefined;
 
     let current = this.head;
