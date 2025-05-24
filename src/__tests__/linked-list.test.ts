@@ -1,4 +1,5 @@
 import { LinkedList } from "../linked-list";
+import { Exception } from "../exceptions";
 
 describe("linkedList", () => {
   describe("when empty", () => {
@@ -21,13 +22,9 @@ describe("linkedList", () => {
         expect(linkedList.asArray()).toEqual([10]));
     });
 
-    describe("when an element is popped", () => {
-      let poppedValue: number;
-
-      beforeEach(() => (poppedValue = linkedList.pop()));
-
-      it("should return undefined", () => expect(poppedValue).toBeUndefined());
-    });
+    describe("when an element is popped", () =>
+      it("should throw empty list exception", () =>
+        expect(() => linkedList.pop()).toThrow(Exception.EMPTY_LIST)));
 
     describe("when an element is unshifted", () => {
       beforeEach(() => linkedList.unshift(10));
@@ -39,39 +36,22 @@ describe("linkedList", () => {
         expect(linkedList.asArray()).toEqual([10]));
     });
 
-    describe("when an element is shifted", () => {
-      let shiftedValue: number;
+    describe("when an element is shifted", () =>
+      it("should throw empty list exception", () =>
+        expect(() => linkedList.shift()).toThrow(Exception.EMPTY_LIST)));
 
-      beforeEach(() => (shiftedValue = linkedList.shift()));
+    describe("when get function is called", () =>
+      it("show throw invalid index exception", () =>
+        expect(() => linkedList.get(0)).toThrow(Exception.INVALID_INDEX(0))));
 
-      it("should return undefined", () => expect(shiftedValue).toBeUndefined());
-    });
-
-    describe("when get function is called", () => {
-      let value: number;
-
-      beforeEach(() => (value = linkedList.get(0)));
-
-      it("should return undefined", () => expect(value).toBeUndefined());
-    });
-
-    describe("when set function is called", () => {
-      let hasSet: boolean;
-
-      beforeEach(() => (hasSet = linkedList.set(0, 10)));
-
-      it("should return false", () => expect(hasSet).toBeFalsy());
-
-      it("should return an empty array without setting the value", () =>
-        expect(linkedList.asArray()).toEqual([]));
-    });
+    describe("when set function is called", () =>
+      it("show throw invalid index exception", () =>
+        expect(() => linkedList.set(0, 10)).toThrow(
+          Exception.INVALID_INDEX(0),
+        )));
 
     describe("when insert function is called", () => {
-      let isInserted: boolean;
-
-      beforeEach(() => (isInserted = linkedList.insert(0, 10)));
-
-      it("should return true", () => expect(isInserted).toBeTruthy());
+      beforeEach(() => linkedList.insert(0, 10));
 
       it("should have a length of 1", () =>
         expect(linkedList.getLength()).toEqual(1));
@@ -152,23 +132,15 @@ describe("linkedList", () => {
     });
 
     describe("when set function is called", () => {
-      let hasSet: boolean;
-
-      beforeEach(() => (hasSet = linkedList.set(0, 20)));
-
-      it("should return true", () => expect(hasSet).toBeTruthy());
+      beforeEach(() => linkedList.set(0, 20));
 
       it("should return an empty array with the updated value", () =>
         expect(linkedList.asArray()).toEqual([20]));
     });
 
     describe("when insert function is called", () => {
-      let isInserted: boolean;
-
       describe("and an element is inserted into the 0th index", () => {
-        beforeEach(() => (isInserted = linkedList.insert(0, 1)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(0, 1));
 
         it("should have a length of 2", () =>
           expect(linkedList.getLength()).toEqual(2));
@@ -178,9 +150,7 @@ describe("linkedList", () => {
       });
 
       describe("and the element is inserted into the 1st index", () => {
-        beforeEach(() => (isInserted = linkedList.insert(1, 20)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(1, 20));
 
         it("should have a length of 2", () =>
           expect(linkedList.getLength()).toEqual(2));
@@ -276,17 +246,15 @@ describe("linkedList", () => {
     describe("when get function is called", () => {
       let value: number;
 
-      describe("with index less than 0", () => {
-        beforeEach(() => (value = linkedList.get(-1)));
+      describe("with index less than 0", () =>
+        it("show throw invalid index exception", () =>
+          expect(() => linkedList.get(-1)).toThrow(
+            Exception.INVALID_INDEX(-1),
+          )));
 
-        it("should return undefined", () => expect(value).toBeUndefined());
-      });
-
-      describe("with index greater than the total length of the list", () => {
-        beforeEach(() => (value = linkedList.get(5)));
-
-        it("should return undefined", () => expect(value).toBeUndefined());
-      });
+      describe("with index greater than the total length of the list", () =>
+        it("show throw invalid index exception", () =>
+          expect(() => linkedList.get(5)).toThrow(Exception.INVALID_INDEX(5))));
 
       describe("with index within the length of the list", () => {
         beforeEach(() => (value = linkedList.get(3)));
@@ -297,30 +265,20 @@ describe("linkedList", () => {
     });
 
     describe("when set function is called", () => {
-      let hasSet: boolean;
+      describe("with index less than 0", () =>
+        it("should throw invalid index exception", () =>
+          expect(() => linkedList.set(-1, -10)).toThrow(
+            Exception.INVALID_INDEX(-1),
+          )));
 
-      describe("with index less than 0", () => {
-        beforeEach(() => (hasSet = linkedList.set(-1, -10)));
-
-        it("should return false", () => expect(hasSet).toBeFalsy());
-
-        it("should return the array with existing values", () =>
-          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
-      });
-
-      describe("with index greater than the list's length", () => {
-        beforeEach(() => (hasSet = linkedList.set(5, 60)));
-
-        it("should return false", () => expect(hasSet).toBeFalsy());
-
-        it("should return the array with existing values", () =>
-          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
-      });
+      describe("with index greater than the list's length", () =>
+        it("should throw invalid index exception", () =>
+          expect(() => linkedList.set(5, 60)).toThrow(
+            Exception.INVALID_INDEX(5),
+          )));
 
       describe("with the index within the list", () => {
-        beforeEach(() => (hasSet = linkedList.set(2, 100)));
-
-        it("should return true", () => expect(hasSet).toBeTruthy());
+        beforeEach(() => linkedList.set(2, 100));
 
         it("should return the array with the updated values", () =>
           expect(linkedList.asArray()).toEqual([10, 20, 100, 40, 50]));
@@ -328,36 +286,20 @@ describe("linkedList", () => {
     });
 
     describe("when insert function is called", () => {
-      let isInserted: boolean;
+      describe("with index less than 0", () =>
+        it("should throw invalid index exception", () =>
+          expect(() => linkedList.insert(-1, 1)).toThrow(
+            Exception.INVALID_INDEX(-1),
+          )));
 
-      describe("with index less than 0", () => {
-        beforeEach(() => (isInserted = linkedList.insert(-1, 1)));
-
-        it("should return false", () => expect(isInserted).toBeFalsy());
-
-        it("should retain the existing length", () =>
-          expect(linkedList.getLength()).toEqual(5));
-
-        it("should return the array with existing values", () =>
-          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
-      });
-
-      describe("with index is 1 greater than the list's length", () => {
-        beforeEach(() => (isInserted = linkedList.insert(6, 1)));
-
-        it("should return false", () => expect(isInserted).toBeFalsy());
-
-        it("should retain the existing length", () =>
-          expect(linkedList.getLength()).toEqual(5));
-
-        it("should return the array with existing values", () =>
-          expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
-      });
+      describe("with index is greater than the list's length", () =>
+        it("should throw invalid index exception", () =>
+          expect(() => linkedList.insert(6, 1)).toThrow(
+            Exception.INVALID_INDEX(6),
+          )));
 
       describe("with index 0", () => {
-        beforeEach(() => (isInserted = linkedList.insert(0, 1)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(0, 1));
 
         it("should return length of 6", () =>
           expect(linkedList.getLength()).toEqual(6));
@@ -367,9 +309,7 @@ describe("linkedList", () => {
       });
 
       describe("with index equal to the list's length", () => {
-        beforeEach(() => (isInserted = linkedList.insert(5, 60)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(5, 60));
 
         it("should return length of 6", () =>
           expect(linkedList.getLength()).toEqual(6));
@@ -379,9 +319,7 @@ describe("linkedList", () => {
       });
 
       describe("with index that inserts an element at the current last element", () => {
-        beforeEach(() => (isInserted = linkedList.insert(4, 45)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(4, 45));
 
         it("should return length of 6", () =>
           expect(linkedList.getLength()).toEqual(6));
@@ -391,9 +329,7 @@ describe("linkedList", () => {
       });
 
       describe("with an index within the list's length", () => {
-        beforeEach(() => (isInserted = linkedList.insert(2, 25)));
-
-        it("should return true", () => expect(isInserted).toBeTruthy());
+        beforeEach(() => linkedList.insert(2, 25));
 
         it("should return length of 6", () =>
           expect(linkedList.getLength()).toEqual(6));

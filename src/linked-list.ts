@@ -1,3 +1,4 @@
+import { Exception } from "./exceptions";
 import { isDefined } from "./utils";
 
 class Node<T> {
@@ -44,7 +45,7 @@ export class LinkedList<T> {
     }
   }
 
-  push(value: T): this {
+  push(value: T): void {
     const newNode = new Node(value);
 
     if (!isDefined(this.head)) {
@@ -55,12 +56,10 @@ export class LinkedList<T> {
       this.tail = newNode;
       ++this.length;
     }
-
-    return this;
   }
 
-  pop(): T | undefined {
-    if (!isDefined(this.head)) return undefined;
+  pop(): T {
+    if (!isDefined(this.head)) throw Exception.EMPTY_LIST;
 
     let previous = this.head;
     let current = this.head.getNext();
@@ -86,8 +85,8 @@ export class LinkedList<T> {
   /**
    * Removes the first element in the list
    */
-  shift(): T | undefined {
-    if (!isDefined(this.head)) return undefined;
+  shift(): T {
+    if (!isDefined(this.head)) throw Exception.EMPTY_LIST;
 
     const value = this.head.getValue();
 
@@ -106,7 +105,7 @@ export class LinkedList<T> {
    * Adds an element to the beginning of the list
    * @param value
    */
-  unshift(value: T): this {
+  unshift(value: T): void {
     const newNode = new Node(value);
 
     if (!isDefined(this.head)) {
@@ -117,32 +116,24 @@ export class LinkedList<T> {
     }
 
     ++this.length;
-
-    return this;
   }
 
-  get(index: number): T | undefined {
+  get(index: number): T {
     return this.getNodeAtIndex(index)?.getValue();
   }
 
-  set(index: number, value: T): boolean {
+  set(index: number, value: T): void {
     const node = this.getNodeAtIndex(index);
-
-    if (isDefined(node)) {
-      node.setValue(value);
-      return true;
-    }
-
-    return false;
+    node.setValue(value);
   }
 
-  insert(index: number, value: T): boolean {
+  insert(index: number, value: T): void {
+    if (index < 0 || index > this.length) throw Exception.INVALID_INDEX(index);
+
     if (index === 0) {
       this.unshift(value);
     } else if (index === this.length) {
       this.push(value);
-    } else if (index < 0 || index > this.length) {
-      return false;
     } else {
       let current = this.head;
 
@@ -156,8 +147,6 @@ export class LinkedList<T> {
 
       ++this.length;
     }
-
-    return true;
   }
 
   getLength(): number {
@@ -178,8 +167,8 @@ export class LinkedList<T> {
     return values;
   }
 
-  private getNodeAtIndex(index: number): Node<T> | undefined {
-    if (index < 0 || index >= this.length) return undefined;
+  private getNodeAtIndex(index: number): Node<T> {
+    if (index < 0 || index >= this.length) throw Exception.INVALID_INDEX(index);
 
     let current = this.head;
 
