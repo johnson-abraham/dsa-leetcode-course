@@ -338,5 +338,12 @@ describe("linkedList", () => {
           expect(linkedList.asArray()).toEqual([10, 20, 25, 30, 40, 50]));
       });
     });
+
+    describe("when reverse function is called", () => {
+      beforeEach(() => linkedList.reverse());
+
+      it("should return the array with the reversed values", () =>
+        expect(linkedList.asArray()).toEqual([50, 40, 30, 20, 10]));
+    });
   });
 });

@@ -149,6 +149,27 @@ export class LinkedList<T> {
     }
   }
 
+  reverse(): void {
+    if (this.length <= 1) return;
+
+    let temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+
+    let tail = this.tail;
+    temp = temp.getNext();
+
+    while (isDefined(temp)) {
+      const next = temp.getNext();
+      temp.setNext(tail);
+
+      tail = temp;
+      temp = next;
+    }
+
+    this.tail.setNext(null);
+  }
+
   getLength(): number {
     return this.length;
   }
