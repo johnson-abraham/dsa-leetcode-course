@@ -182,6 +182,14 @@ export class LinkedList<T> {
     this.tail.setNext(null);
   }
 
+  getHead(): Node<T> {
+    return this.head;
+  }
+
+  getTail(): Node<T> {
+    return this.tail;
+  }
+
   getLength(): number {
     return this.length;
   }

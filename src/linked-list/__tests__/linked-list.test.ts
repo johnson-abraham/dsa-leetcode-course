@@ -13,6 +13,12 @@ describe("linkedList", () => {
     it("should have a length of 0", () =>
       expect(linkedList.getLength()).toEqual(0));
 
+    it("should have null value for head", () =>
+      expect(linkedList.getHead()).toBeNull());
+
+    it("should have null value for tail", () =>
+      expect(linkedList.getTail()).toBeNull());
+
     describe("when an element is pushed", () => {
       beforeEach(() => linkedList.push(10));
 
@@ -71,6 +77,9 @@ describe("linkedList", () => {
 
     it("should return the element in the array", () =>
       expect(linkedList.asArray()).toEqual([10]));
+
+    it("should point to the same object for head and tail", () =>
+      expect(linkedList.getHead()).toEqual(linkedList.getTail()));
 
     describe("when an element is pushed", () => {
       beforeEach(() => linkedList.push(20));
@@ -177,6 +186,12 @@ describe("linkedList", () => {
 
     it("should return an array with all the elements in order", () =>
       expect(linkedList.asArray()).toEqual([10, 20, 30, 40, 50]));
+
+    it("should return the value of head", () =>
+      expect(linkedList.getHead().getValue()).toEqual(10));
+
+    it("should return the value of tail", () =>
+      expect(linkedList.getTail().getValue()).toEqual(50));
 
     describe("when an element is pushed", () => {
       beforeEach(() => linkedList.push(60));
