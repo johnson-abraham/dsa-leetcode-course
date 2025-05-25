@@ -1,7 +1,7 @@
 import { Exception } from "../exceptions";
 import { isDefined } from "../utils";
 
-class Node<T> {
+export class Node<T> {
   private value: T;
   private next: Node<T>;
 
@@ -127,6 +127,18 @@ export class LinkedList<T> {
     node.setValue(value);
   }
 
+  getNodeAtIndex(index: number): Node<T> {
+    if (index < 0 || index >= this.length) throw Exception.INVALID_INDEX(index);
+
+    let current = this.head;
+
+    for (let i = 0; i < index; i++) {
+      current = current.getNext();
+    }
+
+    return current;
+  }
+
   insert(index: number, value: T): void {
     if (index < 0 || index > this.length) throw Exception.INVALID_INDEX(index);
 
@@ -186,17 +198,5 @@ export class LinkedList<T> {
     }
 
     return values;
-  }
-
-  private getNodeAtIndex(index: number): Node<T> {
-    if (index < 0 || index >= this.length) throw Exception.INVALID_INDEX(index);
-
-    let current = this.head;
-
-    for (let i = 0; i < index; i++) {
-      current = current.getNext();
-    }
-
-    return current;
   }
 }
