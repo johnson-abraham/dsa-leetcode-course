@@ -1,5 +1,5 @@
-import { Exception } from "./exceptions";
-import { isDefined } from "./utils";
+import { Exception } from "../exceptions";
+import { isDefined } from "../utils";
 
 class Node<T> {
   private value: T;

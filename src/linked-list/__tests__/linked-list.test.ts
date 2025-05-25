@@ -1,5 +1,5 @@
 import { LinkedList } from "../linked-list";
-import { Exception } from "../exceptions";
+import { Exception } from "../../exceptions";
 
 describe("linkedList", () => {
   describe("when empty", () => {
