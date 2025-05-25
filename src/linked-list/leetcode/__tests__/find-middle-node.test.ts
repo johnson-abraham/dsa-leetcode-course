@@ -10,9 +10,7 @@ describe("findMiddleNode", () => {
     beforeEach(() => (linkedList = new LinkedList<number>()));
 
     it("should throw error", () =>
-      expect(() => findMiddleNode(linkedList)).toThrow(
-        Exception.INVALID_INDEX(0),
-      ));
+      expect(() => findMiddleNode(linkedList)).toThrow(Exception.EMPTY_LIST));
   });
 
   describe("when the list has one element", () => {

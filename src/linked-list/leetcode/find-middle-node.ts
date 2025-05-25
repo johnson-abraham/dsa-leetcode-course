@@ -1,5 +1,6 @@
 import { Node, LinkedList } from "../linked-list";
 import { isDefined } from "../../utils";
+import { Exception } from "../../exceptions";
 
 /**
  * Finds the middle node of a given linked list.
@@ -15,10 +16,14 @@ import { isDefined } from "../../utils";
  * @throws {Error} If the provided linked list is empty.
  */
 export function findMiddleNode<T>(linkedList: LinkedList<T>): Node<T> {
+  const head = linkedList.getHead();
+
+  if (head === null) throw Exception.EMPTY_LIST;
+
   let fast: Node<T>;
   let slow: Node<T>;
 
-  fast = slow = linkedList.getNodeAtIndex(0);
+  fast = slow = linkedList.getHead();
 
   while (isDefined(fast) && isDefined(fast.getNext())) {
     slow = slow.getNext();
