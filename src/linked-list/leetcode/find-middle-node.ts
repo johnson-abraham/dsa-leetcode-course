@@ -1,6 +1,3 @@
-// Given a linked list, find its middle node.
-// You do not have access to the list's length, and calculating it is not permitted.
-
 import { Node, LinkedList } from "../linked-list";
 import { isDefined } from "../../utils";
 
