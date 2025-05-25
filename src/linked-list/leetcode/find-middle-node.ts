@@ -20,10 +20,8 @@ export function findMiddleNode<T>(linkedList: LinkedList<T>): Node<T> {
 
   if (!isDefined(head)) throw Exception.EMPTY_LIST;
 
-  let fast: Node<T>;
-  let slow: Node<T>;
-
-  fast = slow = linkedList.getHead();
+  let fast = head;
+  let slow = head;
 
   while (isDefined(fast) && isDefined(fast.getNext())) {
     slow = slow.getNext();
