@@ -18,7 +18,7 @@ import { Exception } from "../../exceptions";
 export function findMiddleNode<T>(linkedList: LinkedList<T>): Node<T> {
   const head = linkedList.getHead();
 
-  if (head === null) throw Exception.EMPTY_LIST;
+  if (!isDefined(head)) throw Exception.EMPTY_LIST;
 
   let fast: Node<T>;
   let slow: Node<T>;
