@@ -1,4 +1,4 @@
-import { Node, LinkedList } from "../linked-list";
+import { LinkedList } from "../linked-list";
 import { isDefined } from "../../utils";
 
 /**
